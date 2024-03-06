@@ -191,9 +191,9 @@ def concat_dwugs(path):
         instances = pd.concat([instances, inst_frame])
         judgments = pd.concat([judgments, judge_frame])
     
-    uses.to_csv(os.path.join(path, 'uses.tsv'), sep='\t', index=False)
-    instances.to_csv(os.path.join(path, 'instances.tsv'), sep='\t', index=False)
-    judgments.to_csv(os.path.join(path, 'judgments.tsv'), sep='\t', index=False)
+    uses.to_csv(os.path.join(path, 'uses.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    instances.to_csv(os.path.join(path, 'instances.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    judgments.to_csv(os.path.join(path, 'judgments.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 def download_dwug(path, lang='en'):
     urls = {'en': 'https://zenodo.org/record/5796878/files/dwug_en.zip', 

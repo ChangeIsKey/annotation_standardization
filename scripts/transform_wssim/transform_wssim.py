@@ -73,7 +73,7 @@ def make_uses(xml_file, file_path):
         rslt_df = df[df['lemma'] == lem]
         os.mkdir(os.path.join(file_path, lem))
         output_dir = os.path.join(file_path, lem, 'uses.tsv')
-        rslt_df.to_csv(output_dir, sep='\t', index=False)
+        rslt_df.to_csv(output_dir, sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 #******************************************************#
 # JUDGMENTS
@@ -115,7 +115,7 @@ def make_judgments(csv_file, file_path):
         filtered_df = filtered_df.drop('lemma', axis=1)
         # write judgments.tsv file to lemma folder
         output_dir = os.path.join(file_path, lemma, 'judgments.tsv')
-        filtered_df.to_csv(output_dir, sep='\t', index=False)
+        filtered_df.to_csv(output_dir, sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 #******************************************************#
 # SENSES
@@ -141,7 +141,7 @@ def make_senses(csv_file, file_path):
         filtered_df = transformed[transformed['lemma'] == lemma]
         # write senses.tsv file to lemma folder
         output_dir = os.path.join(file_path, lemma, 'senses.tsv')
-        filtered_df.to_csv(output_dir, sep='\t', index=False)
+        filtered_df.to_csv(output_dir, sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 
 #*****************************************************************************
@@ -152,7 +152,7 @@ def make_instances(path):
     cols = ['instanceID', 'dataIDs', 'label_set', 'non_label']
     for dir in os.listdir(path):
         f = os.path.join(path, dir)
-        df = pd.read_csv(os.path.join(f, 'judgments.tsv'), sep='\t')
+        df = pd.read_csv(os.path.join(f, 'judgments.tsv'), sep='\t', quoting=csv.QUOTE_NONE)
 
         # get data for instance df
         instance_ids = df['instanceID'].to_list()
@@ -165,7 +165,7 @@ def make_instances(path):
 
         new_df = pd.DataFrame(list(zip(instance_ids, data_ids, labels, non_label)), columns=cols)
         new_df = new_df.drop_duplicates(subset=['instanceID'])
-        new_df.to_csv(os.path.join(f, 'instances.tsv'), sep='\t', index=False)
+        new_df.to_csv(os.path.join(f, 'instances.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 #####################################################################################################################
 # Concat data to single files
@@ -185,10 +185,10 @@ def concat_mc(path):
         sense_path = os.path.join(f, 'senses.tsv')
 
         # Create dataframes from paths
-        use_frame = pd.read_csv(use_path, delimiter='\t')
-        inst_frame = pd.read_csv(inst_path, delimiter='\t')
-        judge_frame = pd.read_csv(judge_path, delimiter='\t')
-        sense_frame = pd.read_csv(sense_path, delimiter='\t')
+        use_frame = pd.read_csv(use_path, delimiter='\t', quoting=csv.QUOTE_NONE)
+        inst_frame = pd.read_csv(inst_path, delimiter='\t', quoting=csv.QUOTE_NONE)
+        judge_frame = pd.read_csv(judge_path, delimiter='\t', quoting=csv.QUOTE_NONE)
+        sense_frame = pd.read_csv(sense_path, delimiter='\t', quoting=csv.QUOTE_NONE)
 
         # Concat frames
         uses = pd.concat([uses, use_frame])
@@ -196,10 +196,10 @@ def concat_mc(path):
         judgments = pd.concat([judgments, judge_frame])
         senses = pd.concat([senses, sense_frame])
     
-    uses.to_csv(os.path.join(path, 'uses.tsv'), sep='\t', index=False)
-    instances.to_csv(os.path.join(path, 'instances.tsv'), sep='\t', index=False)
-    judgments.to_csv(os.path.join(path, 'judgments.tsv'), sep='\t', index=False)
-    senses.to_csv(os.path.join(path, 'senses.tsv'), sep='\t', index=False)
+    uses.to_csv(os.path.join(path, 'uses.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    instances.to_csv(os.path.join(path, 'instances.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    judgments.to_csv(os.path.join(path, 'judgments.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    senses.to_csv(os.path.join(path, 'senses.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 
 

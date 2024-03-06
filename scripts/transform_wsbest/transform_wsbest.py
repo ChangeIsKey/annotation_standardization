@@ -68,7 +68,7 @@ def make_uses(xml_file, file_path):
         rslt_df = df[df['lemma'] == lem]
         os.mkdir(os.path.join(file_path, lem))
         output_dir = os.path.join(file_path, lem, 'uses.tsv')
-        rslt_df.to_csv(output_dir, sep='\t', index=False)
+        rslt_df.to_csv(output_dir, sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 #####################################################################################################################
 # Make the judgments
@@ -171,10 +171,10 @@ def concat_mc(path):
         sense_path = os.path.join(f, 'senses.tsv')
 
         # Create dataframes from paths
-        use_frame = pd.read_csv(use_path, delimiter='\t')
-        inst_frame = pd.read_csv(inst_path, delimiter='\t')
-        judge_frame = pd.read_csv(judge_path, delimiter='\t')
-        sense_frame = pd.read_csv(sense_path, delimiter='\t')
+        use_frame = pd.read_csv(use_path, delimiter='\t', quoting=csv.QUOTE_NONE)
+        inst_frame = pd.read_csv(inst_path, delimiter='\t', quoting=csv.QUOTE_NONE)
+        judge_frame = pd.read_csv(judge_path, delimiter='\t', quoting=csv.QUOTE_NONE)
+        sense_frame = pd.read_csv(sense_path, delimiter='\t', quoting=csv.QUOTE_NONE)
 
         # Concat frames
         uses = pd.concat([uses, use_frame])
@@ -182,10 +182,10 @@ def concat_mc(path):
         judgments = pd.concat([judgments, judge_frame])
         senses = pd.concat([senses, sense_frame])
     
-    uses.to_csv(os.path.join(path, 'uses.tsv'), sep='\t', index=False)
-    instances.to_csv(os.path.join(path, 'instances.tsv'), sep='\t', index=False)
-    judgments.to_csv(os.path.join(path, 'judgments.tsv'), sep='\t', index=False)
-    senses.to_csv(os.path.join(path, 'senses.tsv'), sep='\t', index=False)
+    uses.to_csv(os.path.join(path, 'uses.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    instances.to_csv(os.path.join(path, 'instances.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    judgments.to_csv(os.path.join(path, 'judgments.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
+    senses.to_csv(os.path.join(path, 'senses.tsv'), sep='\t', quoting=csv.QUOTE_NONE, index=False)
 
 #####################################################################################################################
 # Main function
