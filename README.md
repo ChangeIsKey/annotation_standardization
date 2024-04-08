@@ -37,6 +37,7 @@ Each `task_type` will be one of the following:
 - use tuple
 - use rank
 - use replace
+- sentiment analysis
 
 For each `task_name`, you will find a task-specific README file which contains suggested configurations for data files. Additionally, you will find a Guidelines document containing guidelines for annotators. Each `language` folder contains the folders `tutorial` and `data`. The `tutorial` folder contains a small set of data for training annotators. The `data` file contains a set of real, pre-annotated data. 
 
